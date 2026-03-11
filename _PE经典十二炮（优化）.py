@@ -26,10 +26,6 @@ while(1):
 
     AutoCollect()  # 自动收集资源
 
-    cob_crood = relist(cob_crood, FireCobTime)
-
-    print("现发炮顺序为：", cob_crood, "\n上 2 f共发射", FireCobTime)
-
     FireCobTime = 0
 
     UpdatePaoList(cob_crood)
@@ -107,3 +103,6 @@ while(1):
     f += 2
     print("\n----------分割线----------\n已经完成 2 f，此脚本从启用至今已累计完成",f ,"f\n阳光增长：", (ReadMemory("int", 0x6a9ec0, 0x768, 0x5560) - Sun),"\n----------分割线----------\n\n")
     Sun = ReadMemory("int", 0x6a9ec0, 0x768, 0x5560)
+
+    cob_crood = relist(cob_crood, FireCobTime)
+    print("现发炮顺序为：", cob_crood, "\n上 2 f共发射", FireCobTime)
