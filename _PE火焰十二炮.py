@@ -26,10 +26,14 @@ def PumpkinFix():
     Slots_offset = ReadMemory("int", 0x6a9ec0, 0x768, 0x144)
 
     for i in range(0, plants_max):
-        if ReadMemory("int", plants_offset + 0x24 + 0x50 * i) == 30 and ReadMemory("int", plants_offset + 0x40 + 0x50 * i) < 2666:
+        if ReadMemory("int", plants_offset + 0x24 + 0x14c * i) == 30 and ReadMemory("int", plants_offset + 0x40 + 0x14c * i) < 2666:
             PumpkinCooling = ReadMemory("int", Slots_offset + 0x28 + 0x50 * 3)
             if PumpkinCooling == 0:
                 Card(5, (ReadMemory("int", plants_offset + 0x1c + 0x50 * i), ReadMemory("int", plants_offset + 0x28 + 0x14c * i)))
+
+new_cob_crood = input("请输入上轮发炮顺序（若无视可输入1）：")
+if new_cob_crood != 1:
+    cob_crood = new_cob_crood
 
 while(1):
     time.sleep(2)  # 选卡时概率出现的bug
@@ -113,4 +117,5 @@ while(1):
     Sun = ReadMemory("int", 0x6a9ec0, 0x768, 0x5560)
 
     cob_crood = relist(cob_crood, FireCobTime)
+
     print("现发炮顺序为：", cob_crood, "\n上 2 f共发射", FireCobTime)
