@@ -19,6 +19,10 @@ def relist(cob_crood, n):
     n %= len(cob_crood)
     return cob_crood[n:] + cob_crood[:n]
 
+new_cob_crood = input("请输入上轮发炮顺序（若无视可输入1）：")
+if new_cob_crood != 1:
+    cob_crood = new_cob_crood
+    
 while(1):
     time.sleep(2)  # 选卡时概率出现的bug
 
