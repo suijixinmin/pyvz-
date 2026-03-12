@@ -12,7 +12,7 @@ import time
 f = 0  # 脚本累计完成flag数
 Sun = ReadMemory("int", 0x6a9ec0, 0x768, 0x5560)  # 目前阳光数量
 FireCobTime = 0  # 计算发射次数，以制定发射列表
-cob_crood = [(3, 1), (4, 1), (3, 3), (4, 3), (1, 5), (2, 5), (3, 5), (4, 5), (5, 5), (6, 5), (3, 7), (4, 7)]
+cob_crood = []  # [(3, 1), (4, 1), (3, 3), (4, 3), (1, 5), (2, 5), (3, 5), (4, 5), (5, 5), (6, 5), (3, 7), (4, 7)]
 
 # 根据发射次数重新排列发射顺序
 def relist(cob_crood, n):
@@ -30,9 +30,27 @@ def PumpkinFix():
             if PumpkinCooling == 0:
                 Card(4, (ReadMemory("int", plants_offset + 0x1c + 0x14c * i) + 1, ReadMemory("int", plants_offset + 0x28 + 0x14c * i) + 1))
 
-new_cob_crood = input("请输入发炮顺序（1是默认）：")
-if new_cob_crood != 1:
-    cob_crood = new_cob_crood
+def ListCobCrood():
+    global cob_crood
+    plants_offset = ReadMemory("int", 0x6a9ec0, 0x768, 0xac)
+    plants_max = ReadMemory("int", 0x6a9ec0, 0x768, 0xbc)
+    cob_temp = 0
+    ct = []
+    for i in range(0, plants_max):
+        if ReadMemory("int", plants_offset + 0x24 + 0x14c * i) == 47:
+            ct.append(ReadMemory("int", plants_offset + 0x54 + 0x14c * i))
+            cob_crood.append((ReadMemory("int", plants_offset + 0x1c + 0x14c * i) + 1, ReadMemory("int", plants_offset + 0x28 + 0x14c * i) + 1))
+    for i in range(0, len(cob_crood)):
+         for j in range(0, len(cob_crood) - i - 1):
+            if ct[j] > ct[j + 1]:
+                cob_temp = ct[j]
+                ct[j] = ct[j + 1]
+                ct[j + 1] = cob_temp
+                cob_temp = cob_crood[j]
+                cob_crood[j] = cob_crood[j + 1]
+                cob_crood[j + 1] = cob_temp
+
+ListCobCrood()
 
 while(1):
     time.sleep(2)  # 选卡时概率出现的bug
@@ -117,3 +135,4 @@ while(1):
 
     cob_crood = relist(cob_crood, FireCobTime)
     print("现发炮顺序为：", cob_crood, "\n上 2 f共发射", FireCobTime)
+    
