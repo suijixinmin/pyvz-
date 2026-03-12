@@ -30,6 +30,10 @@ def PumpkinFix():
             if PumpkinCooling == 0:
                 Card(4, (ReadMemory("int", plants_offset + 0x1c + 0x14c * i) + 1, ReadMemory("int", plants_offset + 0x28 + 0x14c * i) + 1))
 
+new_cob_crood = input("请输入文本（1是默认）：")
+if new_cob_crood != 1:
+    cob_crood = new_cob_crood
+
 while(1):
     time.sleep(2)  # 选卡时概率出现的bug
 
