@@ -33,7 +33,7 @@ def PumpkinFix():
 def ListCobCrood():
     global cob_crood
     plants_offset = ReadMemory("int", 0x6a9ec0, 0x768, 0xac)
-    plants_max = ReadMemory("int", 0x6a9ec0, 0x768, 0xbc)
+    plants_max = ReadMemory("int", 0x6a9ec0, 0x768, 0xb0)
     cob_temp = 0
     ct = []
     for i in range(0, plants_max):
@@ -49,6 +49,12 @@ def ListCobCrood():
                 cob_temp = cob_crood[j]
                 cob_crood[j] = cob_crood[j + 1]
                 cob_crood[j + 1] = cob_temp
+    seen = {}
+    for i, val in enumerate(cob_crood):
+        seen[val] = seen.get(val, 0) + 1
+        if seen[val] == 2:   # 第二次出现
+            del cob_crood[i]
+            break
 
 ListCobCrood()
 
@@ -136,3 +142,4 @@ while(1):
     cob_crood = relist(cob_crood, FireCobTime)
     print("现发炮顺序为：", cob_crood, "\n上 2 f共发射", FireCobTime)
     
+
