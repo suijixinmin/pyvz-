@@ -1,4 +1,4 @@
-# coding=utf-8
+，# coding=utf-8
 """
 阵名: PE经典十二炮
 出处: https://tieba.baidu.com/f?kz=675626485
@@ -26,8 +26,8 @@ def ListCobCrood():
     cob_temp = 0
     ct = []
     for i in range(0, plants_max):
-        if ReadMemory("int", plants_offset + 0x24 + 0x14c * i) == 47:
-            ct.append(ReadMemory("int", plants_offset + 0x54 + 0x14c * i))
+        if ReadMemory("int", plants_offset + 0x24 + 0x14c * i) == 47:  # 判斷植物是不是玉米炮
+            ct.append(ReadMemory("int", plants_offset + 0x54 + 0x14c * i))  # 判斷玉米炮的冷卻時間
             cob_crood.append((ReadMemory("int", plants_offset + 0x1c + 0x14c * i) + 1, ReadMemory("int", plants_offset + 0x28 + 0x14c * i) + 1))
     for i in range(0, len(cob_crood)):
          for j in range(0, len(cob_crood) - i - 1):
