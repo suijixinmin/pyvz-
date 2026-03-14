@@ -22,7 +22,7 @@ def relist(cob_crood, n):
 # 修补南瓜头
 def PumpkinFix():
     plants_offset = ReadMemory("int", 0x6a9ec0, 0x768, 0xac)
-    plants_max = ReadMemory("int", 0x6a9ec0, 0x768, 0xbc)
+    plants_max = ReadMemory("int", 0x6a9ec0, 0x768, 0xb0)
 
     for i in range(0, plants_max):
         if ReadMemory("int", plants_offset + 0x24 + 0x14c * i) == 30 and ReadMemory("int", plants_offset + 0x40 + 0x14c * i) < 2666:
