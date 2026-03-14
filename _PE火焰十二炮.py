@@ -30,6 +30,7 @@ def PumpkinFix():
             if PumpkinCooling == 0:
                 Card(4, (ReadMemory("int", plants_offset + 0x1c + 0x14c * i) + 1, ReadMemory("int", plants_offset + 0x28 + 0x14c * i) + 1))
 
+# 开局整理发炮顺序
 def ListCobCrood():
     global cob_crood
     plants_offset = ReadMemory("int", 0x6a9ec0, 0x768, 0xac)
