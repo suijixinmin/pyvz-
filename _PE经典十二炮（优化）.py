@@ -19,6 +19,7 @@ def relist(cob_crood, n):
     n %= len(cob_crood)
     return cob_crood[n:] + cob_crood[:n]
 
+# 开局整理发炮顺序
 def ListCobCrood():
     global cob_crood
     plants_offset = ReadMemory("int", 0x6a9ec0, 0x768, 0xac)
