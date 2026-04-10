@@ -1,7 +1,7 @@
 # coding=utf-8
 """
 阵名：PE火焰十二炮
-出处：https://tieba.baidu.com/p/701647038#
+出处：https://tieba.baidu.com/p/1869922746
 节奏：P6: PP|PP|PP|PP|PP|PP
 """
 
@@ -70,15 +70,17 @@ def FindPlantsInLineup(plants_type):
 def FindDeadPlantsInLineup(plants_type):
     plants_offset = ReadMemory("int", 0x6a9ec0, 0x768, 0xac)
     plants_max = ReadMemory("int", 0x6a9ec0, 0x768, 0xb0)
-    PlantsLoseCol = 0
-    PlantsLoseRow = 0
+    PlantsLoseCol = -1
+    PlantsLoseRow = -1
             
     for i in range(0, plants_max):
         if ReadMemory("int", plants_offset + 0x24 + 0x14c * i) == plants_type:
-            if ReadMemory("bool", plants_offset + 0x141 + 0x14c * i) == "true":
+            if ReadMemory("bool", plants_offset + 0x141 + 0x14c * i) == True:
                 PlantsLoseCol = ReadMemory("int", plants_offset + 0x1c + 0x14c * i)
                 PlantsLoseRow = ReadMemory("int", plants_offset + 0x28 + 0x14c * i)
-    if PlantsLoseCol != 0:
+    if PlantsLoseCol != -1:
+        PlantsLoseCol += 1
+        PlantsLoseRow += 1
         PlantsLoseColAndRow = (PlantsLoseCol, PlantsLoseRow)
         return PlantsLoseColAndRow
     return 0
@@ -173,10 +175,11 @@ while(1):
             Pao((2, 9), (5, 9))
             FireCobTime += 2
 
+        # 寻找并修补失去的向日葵
         DeadPlants_cr = FindDeadPlantsInLineup(41)
         if DeadPlants_cr != 0:
-            Card(5, DeadPlants_cr)
-            Card(7, DeadPlants_cr)
+            Card(5, (DeadPlants_cr[0], DeadPlants_cr[1]))
+            Card(7, (DeadPlants_cr[0], DeadPlants_cr[1]))
 
     # 完成2f的详细报告
     f += 2
