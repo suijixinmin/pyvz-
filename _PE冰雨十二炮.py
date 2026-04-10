@@ -1,6 +1,6 @@
 # coding=utf-8
 """
-阵名：PE火焰十二炮
+阵名：PE冰雨十二炮
 出处：https://tieba.baidu.com/p/1869922746
 节奏：P6: PP|PP|PP|PP|PP|PP
 """
