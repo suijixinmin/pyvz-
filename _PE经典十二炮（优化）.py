@@ -1,4 +1,4 @@
-，# coding=utf-8
+# coding=utf-8
 """
 阵名: PE经典十二炮
 出处: https://tieba.baidu.com/f?kz=675626485
